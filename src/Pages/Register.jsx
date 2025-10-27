@@ -53,7 +53,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      //   const res = await UserCreation.RegisterUser(formData);
+      const res = await UserCreation.RegisterUser(formData);
 
       toast.success("Registration successful!");
       setFormData({
@@ -73,7 +73,7 @@ const Register = () => {
   };
 
   return (
-    <div className="py-20">
+    <div className="py-20 ">
       <div className=" max-w-md mx-auto rounded-xl shadow-lg p-6 bg-white shadow-emerald-500">
         <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
 
