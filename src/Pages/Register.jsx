@@ -54,8 +54,16 @@ const Register = () => {
 
     try {
       const res = await UserCreation.RegisterUser(formData);
+      console.log("register res : ", res);
 
       toast.success("Registration successful!");
+
+      // storing api tokens if it returns any
+      if (res?.data?.data?.accessToken) {
+        localStorage.setItem("accessToken", res.data.data.accessToken);
+        localStorage.setItem("refreshToken", res.data.data.refreshToken);
+      }
+
       setFormData({
         username: "",
         email: "",
@@ -63,9 +71,10 @@ const Register = () => {
         confirmPassword: "",
       });
 
-      //   Redirect after short delay
+      //  navigating
       setTimeout(() => navigate("/login"), 1000);
     } catch (error) {
+      console.error("Registration error:", error);
       toast.error(error.response?.data?.message || "Registration failed!");
     } finally {
       setLoading(false);

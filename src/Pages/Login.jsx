@@ -12,9 +12,10 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
+  //  regex for email
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  // Validating....................
+  // Validating inputs
   const validate = () => {
     const newErrors = {};
     if (!emailRegex.test(formData.email)) newErrors.email = "Invalid email";
@@ -31,18 +32,22 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-
     setLoading(true);
+
     try {
       const res = await UserCreation.LoginUser(formData);
 
-      // Save token...................
-      localStorage.setItem("token", res.token || "dummy_token");
+      const { accessToken, refreshToken } = res.data;
+
+      // Saving tokens to localStorage...........
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
       toast.success("Login successful!");
 
-      // Redirect after short delay..........
       setTimeout(() => navigate("/"), 1000);
     } catch (error) {
+      console.error("Login error:", error);
       toast.error(error.response?.data?.message || "Login failed!");
     } finally {
       setLoading(false);
@@ -50,11 +55,12 @@ const Login = () => {
   };
 
   return (
-    <div className=" min-h-screen  flex items-center justify-center  bg-amber-200">
+    <div className="min-h-screen flex items-center justify-center bg-amber-200">
       <div className="max-w-md mx-auto shadow-emerald-500 shadow-xl p-6 bg-white rounded-xl">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* .............Email ..........*/}
+          {/* Email Field */}
           <div>
             <label className="block font-medium mb-1">Email</label>
             <input
@@ -69,7 +75,7 @@ const Login = () => {
             )}
           </div>
 
-          {/*...................Password............. */}
+          {/* Password Field */}
           <div>
             <label className="block font-medium mb-1">Password</label>
             <input
@@ -84,7 +90,7 @@ const Login = () => {
             )}
           </div>
 
-          {/* ..............................Submit Button.............................. */}
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
@@ -104,16 +110,14 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Register link */}
         <div className="text-lg font-sans flex items-center justify-center gap-1 mt-5">
           <h3>Don't have an account?</h3>
-          <Link className="text-blue-600" to={"/"}>
+          <Link className="text-blue-600" to={"/register"}>
             Register
           </Link>
         </div>
       </div>
 
-      {/* Toast Notifications */}
       <ToastContainer position="top-center" autoClose={2500} />
     </div>
   );
