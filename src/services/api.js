@@ -5,9 +5,12 @@ export const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+const getAccessToken = () => localStorage.getItem("accessToken");
+const getRefreshToken = () => localStorage.getItem("refreshToken");
+
 api.interceptors.request.use(
   (config) => {
-    const token = "anything";
+    const token = getAccessToken;
     console.log(token);
 
     if (token) {

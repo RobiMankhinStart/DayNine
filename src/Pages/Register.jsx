@@ -78,7 +78,7 @@ const Register = () => {
         <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
 
         <form onSubmit={handleSubmit}>
-          {/* Username */}
+          {/*.............. Username ..................*/}
           <div className="mb-3">
             <label className="block font-medium mb-1">Username</label>
             <input
@@ -93,7 +93,7 @@ const Register = () => {
             )}
           </div>
 
-          {/* Email */}
+          {/* .........Email .....................*/}
           <div className="mb-3">
             <label className="block font-medium mb-1">Email</label>
             <input
@@ -108,7 +108,7 @@ const Register = () => {
             )}
           </div>
 
-          {/* Password */}
+          {/* ..................................Password.................. */}
           <div className="mb-3">
             <label className="block font-medium mb-1">Password</label>
             <input
@@ -123,7 +123,7 @@ const Register = () => {
             )}
           </div>
 
-          {/* Confirm Password */}
+          {/* ...........................Confirm Password ...........................*/}
           <div className="mb-3">
             <label className="block font-medium mb-1">Confirm Password</label>
             <input
