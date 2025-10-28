@@ -14,7 +14,7 @@ const Login = () => {
 
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  // Validate function
+  // Validating....................
   const validate = () => {
     const newErrors = {};
     if (!emailRegex.test(formData.email)) newErrors.email = "Invalid email";
@@ -36,11 +36,11 @@ const Login = () => {
     try {
       const res = await UserCreation.LoginUser(formData);
 
-      // Save token
+      // Save token...................
       localStorage.setItem("token", res.token || "dummy_token");
-      toast.success("✅ Login successful!");
+      toast.success("Login successful!");
 
-      // Redirect after short delay
+      // Redirect after short delay..........
       setTimeout(() => navigate("/"), 1000);
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed!");
@@ -54,7 +54,7 @@ const Login = () => {
       <div className="max-w-md mx-auto shadow-emerald-500 shadow-xl p-6 bg-white rounded-xl">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
+          {/* .............Email ..........*/}
           <div>
             <label className="block font-medium mb-1">Email</label>
             <input
@@ -69,7 +69,7 @@ const Login = () => {
             )}
           </div>
 
-          {/* Password */}
+          {/*...................Password............. */}
           <div>
             <label className="block font-medium mb-1">Password</label>
             <input
@@ -84,7 +84,7 @@ const Login = () => {
             )}
           </div>
 
-          {/* Submit Button */}
+          {/* ..............................Submit Button.............................. */}
           <button
             type="submit"
             disabled={loading}
